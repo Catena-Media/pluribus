@@ -30,7 +30,7 @@ I'm a worker
 I'm a worker
 
 $ kill 17858 # Killing a worker causes a respawn
-$ 2012-08-01T08:50:46.331Z 17851 Pluribus Example worker 17858 died. Respawning
+2012-08-01T08:50:46.331Z 17851 Pluribus Example worker 17858 died. Respawning
 2012-08-01T08:50:46.397Z 17861 Pluribus Executing
 2012-08-01T08:50:46.399Z 17861 Pluribus Running Example worker
 I'm a worker
