@@ -7,7 +7,7 @@ See example.js for usage and more advanced options.
 
 Here's a simple example of the capabilities:
 
-````$ node example.js &
+<pre>$ node example.js &
 [1] 17851
 2012-08-01T08:50:32.287Z 17851 Pluribus Executing
 2012-08-01T08:50:32.293Z 17851 Pluribus Forking Example worker
@@ -39,7 +39,7 @@ $ kill 17851 # Killing the master shuts everything down cleanly
 2012-08-01T08:50:56.109Z 17851 Pluribus Master received SIGTERM.
 2012-08-01T08:50:56.109Z 17851 Pluribus Removing all cluster listeners.
 2012-08-01T08:50:56.109Z 17851 Pluribus Node will kill my children
-2012-08-01T08:50:56.109Z 17851 Pluribus Shutting down master Example process.````
+2012-08-01T08:50:56.109Z 17851 Pluribus Shutting down master Example process.</pre>
 
 
 
