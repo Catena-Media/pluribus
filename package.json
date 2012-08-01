@@ -20,7 +20,7 @@
     "worker",
     "master",
     "fork",
-    "spawn"
+    "spawn",
     "process"
   ],
   "license": "MIT",
