@@ -1,0 +1,31 @@
+{
+  "name": "pluribus",
+  "version": "0.0.1",
+  "author": "Twistdigital <howard.yeend@twistdigital.co.uk>",
+  "description": "Cluster manager",
+  "contributors": [ 
+    {
+      "name": "Howard Yeend",
+      "email": "howard.yeend@gmail.com"
+    } 
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twistdigital/pluribus.git"
+  },
+  "keywords": [
+    "cluster",
+    "cpu",
+    "multi-core",
+    "worker",
+    "master",
+    "fork",
+    "spawn"
+    "process"
+  ],
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6.12"
+  }
+}
+

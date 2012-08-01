@@ -1,0 +1,30 @@
+info it worked if it ends with ok
+verbose cli [ '/usr/local/node/bin/node',
+verbose cli   '/usr/local/node/bin/npm',
+verbose cli   'publish' ]
+info using npm@1.1.21
+info using node@v0.8.1
+verbose config file /home/howard/.npmrc
+verbose config file /usr/local/node/etc/npmrc
+verbose config file /usr/local/node/lib/node_modules/npm/npmrc
+verbose publish [ '.' ]
+verbose cache add [ '.', null ]
+silly cache add: name, spec, args [ undefined, '.', [ '.', null ] ]
+verbose parsed url { pathname: '.', path: '.', href: '.' }
+ERR! Could not install: .
+ERR! Error: ENOENT, open 'package.json'
+ERR! You may report this log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Linux 2.6.35.4-rscloud
+ERR! command "/usr/local/node/bin/node" "/usr/local/node/bin/npm" "publish"
+ERR! cwd /home/howard/pluribus
+ERR! node -v v0.8.1
+ERR! npm -v 1.1.21
+ERR! path package.json
+ERR! code ENOENT
+ERR! message ENOENT, open 'package.json'
+ERR! errno {}
+verbose exit [ 1, true ]
