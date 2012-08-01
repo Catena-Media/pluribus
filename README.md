@@ -20,37 +20,43 @@ Simple example:
 This example in use:
 
 <pre>$ node example.js &
-[1] 17851
-2012-08-01T08:50:32.287Z 17851 Pluribus Executing
-2012-08-01T08:50:32.293Z 17851 Pluribus Forking Example worker
-2012-08-01T08:50:32.301Z 17851 Pluribus Forking Example worker
-2012-08-01T08:50:32.307Z 17851 Pluribus Forking Example worker
-2012-08-01T08:50:32.312Z 17851 Pluribus Forking Example worker
-2012-08-01T08:50:32.316Z 17851 Pluribus Running Example master
+[1] 19961
+2012-08-01T13:27:19.447Z 19961 Pluribus Executing
+2012-08-01T13:27:19.454Z 19961 Pluribus Forking new Example worker
+2012-08-01T13:27:19.463Z 19961 Pluribus Forking new Example worker
+2012-08-01T13:27:19.468Z 19961 Pluribus Forking new Example worker
+2012-08-01T13:27:19.475Z 19961 Pluribus Forking new Example worker
+2012-08-01T13:27:19.479Z 19961 Pluribus Running Example master
 I'm the master
-2012-08-01T08:50:32.362Z 17853 Pluribus Executing
-2012-08-01T08:50:32.364Z 17853 Pluribus Running Example worker
+2012-08-01T13:27:19.524Z 19963 Pluribus Executing
+2012-08-01T13:27:19.526Z 19963 Pluribus Running Example worker
 I'm a worker
-2012-08-01T08:50:32.368Z 17854 Pluribus Executing
-2012-08-01T08:50:32.370Z 17854 Pluribus Running Example worker
+2012-08-01T13:27:19.530Z 19965 Pluribus Executing
+2012-08-01T13:27:19.533Z 19965 Pluribus Running Example worker
 I'm a worker
-2012-08-01T08:50:32.374Z 17856 Pluribus Executing
-2012-08-01T08:50:32.377Z 17856 Pluribus Running Example worker
+2012-08-01T13:27:19.534Z 19966 Pluribus Executing
+2012-08-01T13:27:19.537Z 19966 Pluribus Running Example worker
 I'm a worker
-2012-08-01T08:50:32.380Z 17858 Pluribus Executing
-2012-08-01T08:50:32.382Z 17858 Pluribus Running Example worker
-I'm a worker
-
-$ kill 17858 # Killing a worker causes a respawn
-2012-08-01T08:50:46.331Z 17851 Pluribus Example worker 17858 died. Respawning
-2012-08-01T08:50:46.397Z 17861 Pluribus Executing
-2012-08-01T08:50:46.399Z 17861 Pluribus Running Example worker
+2012-08-01T13:27:19.545Z 19968 Pluribus Executing
+2012-08-01T13:27:19.547Z 19968 Pluribus Running Example worker
 I'm a worker
 
-$ kill 17851 # Killing the master shuts everything down cleanly
-2012-08-01T08:50:56.109Z 17851 Pluribus Master received SIGTERM.
-2012-08-01T08:50:56.109Z 17851 Pluribus Removing all cluster listeners.
-2012-08-01T08:50:56.109Z 17851 Pluribus Node will kill my children
-2012-08-01T08:50:56.109Z 17851 Pluribus Shutting down master Example process.</pre>
+$ kill 19963 # Killing a worker causes another to spawn in its place
+2012-08-01T13:27:41.391Z 19961 Pluribus Example worker 19963 died. Respawning
+2012-08-01T13:27:41.392Z 19961 Pluribus Forking new Example worker
+2012-08-01T13:27:41.456Z 19972 Pluribus Executing
+2012-08-01T13:27:41.458Z 19972 Pluribus Running Example worker
+I'm a worker
+
+$ kill 19961 # Killing the master causes all the workers to die
+2012-08-01T13:28:03.419Z 19961 Pluribus Master received SIGTERM. Ooh, nasty.
+2012-08-01T13:28:03.419Z 19961 Pluribus Removing all cluster listeners.
+2012-08-01T13:28:03.419Z 19961 Pluribus Killing worker 19965
+2012-08-01T13:28:03.419Z 19961 Pluribus Killing worker 19966
+2012-08-01T13:28:03.419Z 19961 Pluribus Killing worker 19968
+2012-08-01T13:28:03.419Z 19961 Pluribus Killing worker 19972
+2012-08-01T13:28:03.419Z 19961 Pluribus Shutting down master Example process.
+
+[1]+  Done                    node example.js</pre>
 
 See example.js for more advanced options
