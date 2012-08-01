@@ -3,9 +3,21 @@ pluribus
 
 Node.JS cluster manager
 
-See example.js for usage and more advanced options.
+Simple example:
 
-Here's a simple example of the capabilities:
+	var pluribus = require('./index.js');
+	
+	function worker() {
+	  console.log("I'm a worker");
+	}
+	
+	function master() {
+	  console.log("I'm the master");
+	}
+	
+	pluribus.execute("Example", {"master":master, "worker":worker});
+
+This example in use:
 
 <pre>$ node example.js &
 [1] 17851
@@ -41,16 +53,4 @@ $ kill 17851 # Killing the master shuts everything down cleanly
 2012-08-01T08:50:56.109Z 17851 Pluribus Node will kill my children
 2012-08-01T08:50:56.109Z 17851 Pluribus Shutting down master Example process.</pre>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+See example.js for more advanced options
