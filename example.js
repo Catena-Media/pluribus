@@ -8,7 +8,7 @@ function master() {
   console.log("I'm the master");
 }
 
-pluribus.execute("Example", {"master":master, "worker":worker, "privs":{"user":"node"}});
+pluribus.execute("Example", {"master":master, "worker":worker});
 
 // The execute method takes two arguments
 // First is a string used when logging. Can be anything.
