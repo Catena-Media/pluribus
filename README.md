@@ -11,17 +11,19 @@ Installation
 Simple example
 ==============
 
-  var pluribus = require('pluribus');
-  
-  function worker() {
-    console.log("I'm a worker");
-  }
-  
-  function master() {
-    console.log("I'm the master");
-  }
-  
-  pluribus.execute("Example", {"master":master, "worker":worker});
+```javascript
+var pluribus = require('pluribus');
+
+function worker() {
+  console.log("I'm a worker");
+}
+
+function master() {
+  console.log("I'm the master");
+}
+```
+
+pluribus.execute("Example", {"master":master, "worker":worker});
 
 This example in use:
 
@@ -87,27 +89,29 @@ First is a string used for logging. Can be anything. We suggest the name of your
 
 Second is a config object with the following format and defaults:
 
-  var config = {};
-  config.master = function() {};      // A function to execute as the master.
-                                      //   Optional. Default: none defined
+```javascript
+var config = {};
+config.master = function() {};      // A function to execute as the master.
+                                    //   Optional. Default: none defined
 
-  config.worker = function() {};      // A function to execute as the workers.
-                                      //   Optional-but-kinda-the-whole-point. Default: none defined
+config.worker = function() {};      // A function to execute as the workers.
+                                    //   Optional-but-kinda-the-whole-point. Default: none defined
 
-  config.silent = false;              // If true pluribus will log nothing.
-                                      //   Optional. Default: false
+config.silent = false;              // If true pluribus will log nothing.
+                                    //   Optional. Default: false
 
-  config.numWorkers = 2;              // If set will attempt to spawn this number of workers.
-                                      //   Optional. Default: however many cpus there are
+config.numWorkers = 2;              // If set will attempt to spawn this number of workers.
+                                    //   Optional. Default: however many cpus there are
 
-  config.privs = {};                  // Affects the privileges of workers.
-                                      //   (eg if your master runs as root/via sudo but you don't want 
-                                      //   your workers to)
-                                      //   When setting this option, master must be able to set uid and gid
-                                      //   otherwise an error will occur.
-                                      //   Optional. Default: workers run with same user and group as master
-  
-  config.privs.user = "userName";     // The username to run workers as.
-                                      //   Optional. Default - same as master
-  config.privs.group = "groupName";   // The group to run workers as.
-                                      //   Optional. Default - same as master
+config.privs = {};                  // Affects the privileges of workers.
+                                    //   (eg if your master runs as root/via sudo but you don't want 
+                                    //   your workers to)
+                                    //   When setting this option, master must be able to set uid and gid
+                                    //   otherwise an error will occur.
+                                    //   Optional. Default: workers run with same user and group as master
+
+config.privs.user = "userName";     // The username to run workers as.
+                                    //   Optional. Default - same as master
+config.privs.group = "groupName";   // The group to run workers as.
+                                    //   Optional. Default - same as master
+```
