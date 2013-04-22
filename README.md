@@ -6,7 +6,7 @@ Node.JS cluster manager. Allows you to run multiple workers, handles reviving de
 Installation
 ============
 
-  $ npm install pluribus
+<pre>$ npm install pluribus</pre>
 
 Simple example
 ==============
