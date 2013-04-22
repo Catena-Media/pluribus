@@ -21,9 +21,9 @@ function worker() {
 function master() {
   console.log("I'm the master");
 }
-```
 
 pluribus.execute("Example", {"master":master, "worker":worker});
+```
 
 This example in use:
 
