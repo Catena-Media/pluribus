@@ -1,17 +1,20 @@
 {
   "name": "pluribus",
-  "version": "0.0.3",
-  "author": "Twistdigital <howard.yeend@twistdigital.co.uk>",
+  "version": "0.0.4",
+  "author": {
+    "name": "Twistdigital",
+    "email": "howard.yeend@twistdigital.co.uk"
+  },
   "description": "Cluster manager",
-  "contributors": [ 
+  "contributors": [
     {
       "name": "Howard Yeend",
       "email": "howard.yeend@gmail.com"
-    } 
+    }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/twistdigital/pluribus.git"
+    "url": "git://github.com/twistdigital/pluribus.git"
   },
   "keywords": [
     "cluster",
@@ -26,6 +29,20 @@
   "license": "MIT",
   "engine": {
     "node": ">=0.6.12"
-  }
+  },
+  "_id": "pluribus@0.0.4",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "_engineSupported": true,
+  "_npmVersion": "1.1.16",
+  "_nodeVersion": "v0.6.15",
+  "_defaultsLoaded": true,
+  "dist": {
+    "shasum": "13b7081efbc8ea7c1074bb0d9d1ad06a7a01659b"
+  },
+  "_from": "pluribus"
 }
-
