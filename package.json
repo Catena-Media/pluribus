@@ -5,7 +5,7 @@
     "name": "Twistdigital",
     "email": "howard.yeend@twistdigital.co.uk"
   },
-  "main": "lib/index.js",
+  "main": "lib/pluribus.js",
   "description": "Cluster manager",
   "contributors": [
     {
