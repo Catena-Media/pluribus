@@ -1,12 +1,14 @@
 Pluribus
 ========
 
-Node.JS cluster manager. Allows you to run multiple workers, handles reviving dead workers, graceful restart and shutdown of workers. Can run workers as different user/group to the master. Number of workers defaults to number of CPUs but is configurable.
+Cluster manager for NodeJS. Pluribus allows you to run multiple workers, handles automatic respawns, graceful restarts and graceful shutdowns.
+
+Workers run with reduce privileges by default, and the number of workers is configurable (but defaults to the number of CPU cores).
 
 Installation
 ============
 
-<pre>$ npm install pluribus</pre>
+<pre>$ npm install --save pluribus</pre>
 
 Simple example
 ==============
@@ -15,26 +17,29 @@ Simple example
 var pluribus = require('pluribus');
 
 function worker() {
-  console.log("I'm a worker");
+    console.log("I'm a worker");
 }
 
 function master() {
-  console.log("I'm the master");
+    console.log("I'm the master");
 }
 
-pluribus.execute("Example", {"master":master, "worker":worker});
+pluribus.execute("Example", { "master": master, "worker": worker, "quiet": false });
 ```
 
 This example in use:
 
 <pre>$ node example.js
-2013-04-22T15:04:38.283Z 20586 Pluribus Master Forking new Example worker
-2013-04-22T15:04:38.294Z 20586 Pluribus Master Forking new Example worker
-2013-04-22T15:04:38.297Z 20586 Pluribus Master Running Example master method
+2014-10-09T15:39:04.748Z [30589]: (master) Starting
+2014-10-09T15:39:04.768Z [30589]: (master) Running Example master method
 I'm the master
-2013-04-22T15:04:38.404Z 20588 Pluribus Worker Running Example worker method
+2014-10-09T15:39:04.914Z [30590]: (worker) Starting
 I'm a worker
-2013-04-22T15:04:38.416Z 20587 Pluribus Worker Running Example worker method
+2014-10-09T15:39:04.929Z [30592]: (worker) Starting
+I'm a worker
+2014-10-09T15:39:04.936Z [30591]: (worker) Starting
+I'm a worker
+2014-10-09T15:39:04.951Z [30593]: (worker) Starting
 I'm a worker</pre>
 
 Killing and Restarting
@@ -42,41 +47,40 @@ Killing and Restarting
 
 Pluribus automatically spawns replacements for dead workers.
 
-Pluribus can also gracefully restart workers ('graceful' is defined in the [cluster docs](http://nodejs.org/api/cluster.html#cluster_worker_disconnect)).
-
 <pre># When a worker dies or is killed another will be spawned in its place
-$ kill 20588
-2013-04-22T15:04:55.162Z 20586 Pluribus Master Received exit event for Example worker 20588
-2013-04-22T15:04:55.163Z 20586 Pluribus Master Forking new Example worker
-2013-04-22T15:04:55.268Z 20589 Pluribus Worker Running Example worker method
+$ kill 30592
+2014-10-09T15:40:29.019Z [30589]: (master) Spawning new worker to replace 30592
+2014-10-09T15:40:29.116Z [30602]: (worker) Starting
 I'm a worker
 
-# Sending a SIGHUP to the master causes all workers to be gracefully restarted, eg to reload config
-$ kill -SIGHUP 20586
-2013-04-22T15:05:38.989Z 20586 Pluribus Master Received SIGHUP
-2013-04-22T15:05:38.989Z 20586 Pluribus Master Gracefully killing workers (cluster disconnect)
-2013-04-22T15:05:38.997Z 20586 Pluribus Master Received exit for Example worker 20589
-2013-04-22T15:05:38.997Z 20586 Pluribus Master Forking new Example worker
-2013-04-22T15:05:39.001Z 20586 Pluribus Master Received exit for Example worker 20587
-2013-04-22T15:05:39.001Z 20586 Pluribus Master Forking new Example worker
-2013-04-22T15:05:39.111Z 20591 Pluribus Worker Running Example worker method
+# Sending a SIGHUP to the master causes all workers finish what they are doing and respawn, e.g. to reload config
+$ kill -HUP 30589
+2014-10-09T15:41:43.990Z [30589]: (master) Got SIGHUP - reloading all workers
+2014-10-09T15:41:44.000Z [30589]: (master) Spawning new worker to replace 30590
+2014-10-09T15:41:44.002Z [30589]: (master) Worker 30590 exited
+2014-10-09T15:41:44.003Z [30589]: (master) Spawning new worker to replace 30602
+2014-10-09T15:41:44.004Z [30589]: (master) Worker 30602 exited
+2014-10-09T15:41:44.004Z [30589]: (master) Spawning new worker to replace 30593
+2014-10-09T15:41:44.007Z [30589]: (master) Worker 30593 exited
+2014-10-09T15:41:44.007Z [30589]: (master) Spawning new worker to replace 30591
+2014-10-09T15:41:44.011Z [30589]: (master) Worker 30591 exited
+2014-10-09T15:41:44.165Z [30609]: (worker) Starting
 I'm a worker
-2013-04-22T15:05:39.122Z 20592 Pluribus Worker Running Example worker method
+2014-10-09T15:41:44.169Z [30610]: (worker) Starting
+I'm a worker
+2014-10-09T15:41:44.172Z [30611]: (worker) Starting
+I'm a worker
+2014-10-09T15:41:44.174Z [30612]: (worker) Starting
 I'm a worker
 
 # Sending a SIGINT to the master causes all workers to gracefully die, followed by the master
-$ kill -SIGINT 20586
-2013-04-22T15:06:13.467Z 20586 Pluribus Master Received SIGINT
-2013-04-22T15:06:13.468Z 20586 Pluribus Master Removing listeners for exit
-2013-04-22T15:06:13.468Z 20586 Pluribus Master Gracefully killing workers (cluster disconnect)
-2013-04-22T15:06:13.469Z 20586 Pluribus Master Exiting
-
-# Sending a SIGTERM to the master forces all workers to exit immediately, followed by the master
-$ kill -SIGTERM 20586
-2013-04-22T15:06:46.652Z 20586 Pluribus Master Received SIGTERM
-2013-04-22T15:06:46.652Z 20586 Pluribus Master Killing worker 20595
-2013-04-22T15:06:46.653Z 20586 Pluribus Master Killing worker 20596
-2013-04-22T15:06:46.653Z 20586 Pluribus Master Exiting</pre>
+$ kill -SIGINT 30589
+2014-10-09T15:42:41.935Z [30589]: (master) Got SIGINT - closing down
+2014-10-09T15:42:41.943Z [30589]: (master) Worker 30612 exited
+2014-10-09T15:42:41.943Z [30589]: (master) Worker 30609 exited
+2014-10-09T15:42:41.943Z [30589]: (master) Worker 30611 exited
+2014-10-09T15:42:41.945Z [30589]: (master) Worker 30610 exited
+$ </pre>
 
 API Documentation
 =================
@@ -87,31 +91,30 @@ The execute method takes two arguments.
 
 First is a string used for logging. Can be anything. We suggest the name of your app.
 
-Second is a config object with the following format and defaults:
+Second is a config object with the following format. All the values are optional, but the defaults may not suit you.
 
 ```javascript
 var config = {};
-config.master = function() {};      // A function to execute as the master.
-                                    //   Optional. Default: none defined
 
-config.worker = function() {};      // A function to execute as the workers.
-                                    //   Optional-but-kinda-the-whole-point. Default: none defined
+config.master = function () {};   // Function to execute as the master.
+                                  //   Default: none defined
 
-config.silent = false;              // If true pluribus will log nothing.
-                                    //   Optional. Default: false
+config.worker = function () {};   // Function to execute as the workers.
+                                  //   Default: none defined
+                                  //   (though optional, its kinda the whole point)
 
-config.numWorkers = 2;              // If set will attempt to spawn this number of workers.
-                                    //   Optional. Default: however many cpus there are
+config.silent = false;            // If true pluribus will log nothing.
+                                  //   Default: false
 
-config.privs = {};                  // Affects the privileges of workers.
-                                    //   (eg if your master runs as root/via sudo but you don't want 
-                                    //   your workers to)
-                                    //   When setting this option, master must be able to set uid and gid
-                                    //   otherwise an error will occur.
-                                    //   Optional. Default: workers run with same user and group as master
+config.numWorkers = 2;            // How many workers to spawn.
+                                  //   Default: number of CPUs
 
-config.privs.user = "userName";     // The username to run workers as.
-                                    //   Optional. Default - same as master
-config.privs.group = "groupName";   // The group to run workers as.
-                                    //   Optional. Default - same as master
+config.privs = {};                // Affects the privileges of workers.
+config.privs.user  = "userName";  // The username to run workers as.
+config.privs.group = "groupName"; // The group to run workers as.
+                                  //    Default: nobody:nogroup
+
+config.waitTimeout = 30000;       // The time (in ms) to wait for processes to drop
+                                  // out after being told to
+                                  //    Default: 30000 (30s)
 ```

@@ -1,15 +1,19 @@
 {
   "name": "pluribus",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "author": {
     "name": "twistdigital",
     "email": "contact@twistdigital.co.uk"
   },
   "main": "lib/pluribus.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "bugs": "https://github.com/twistdigital/pluribus/issues",
   "homepage": "https://github.com/twistdigital/pluribus",
-  "dependencies": {},
+  "dependencies": {
+    "lodash.merge": "^2.4.1"
+  },
   "description": "Cluster manager",
   "contributors": [
     {
@@ -37,6 +41,6 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=0.6.12"
+    "node": ">=0.10.0"
   }
 }
