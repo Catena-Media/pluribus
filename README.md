@@ -97,6 +97,15 @@ config.master = function() {};      // A function to execute as the master.
 config.worker = function() {};      // A function to execute as the workers.
                                     //   Optional-but-kinda-the-whole-point. Default: none defined
 
+config.msgHandler = {};             // Allows communication between master and workers
+                                    //   Optional. Default: none defined
+
+config.msgHandler.master = function() {};  // A function to handle messages from workers.
+                                           //   Optional. Default: none defined
+
+config.msgHandler.worker = function() {};  // A function to handle messages from master.
+                                           //   Optional. Default: none defined
+
 config.silent = false;              // If true pluribus will log nothing.
                                     //   Optional. Default: false
 
