@@ -1,6 +1,6 @@
 {
   "name": "pluribus",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "twistdigital",
     "email": "contact@twistdigital.co.uk"
@@ -12,7 +12,8 @@
   "bugs": "https://github.com/twistdigital/pluribus/issues",
   "homepage": "https://github.com/twistdigital/pluribus",
   "dependencies": {
-    "lodash.merge": "^2.4.1"
+    "glob-watcher": "^2.0.0",
+    "lodash": "^3.8.0"
   },
   "description": "Cluster manager",
   "contributors": [
@@ -23,6 +24,10 @@
     {
       "name": "Mike Hall",
       "email": "mikehall314@gmail.com"
+    },
+    {
+      "name": "Warren Lockhart",
+      "email": "warren.lockhart@twistdigital.co.uk"
     }
   ],
   "repository": {
