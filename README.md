@@ -51,7 +51,8 @@ I'm a worker
 2014-10-09T15:39:04.936Z [30591]: (worker) Starting
 I'm a worker
 2014-10-09T15:39:04.951Z [30593]: (worker) Starting
-I'm a worker</pre>
+I'm a worker
+</pre>
 
 Killing and Restarting
 ======================
