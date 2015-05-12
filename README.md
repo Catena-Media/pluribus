@@ -3,7 +3,9 @@ Pluribus
 
 Cluster manager for NodeJS. Pluribus allows you to run multiple workers, handles automatic respawns, graceful restarts and graceful shutdowns.
 
-Workers run with reduce privileges by default, and the number of workers is configurable (but defaults to the number of CPU cores).
+Pluribus accepts an option flag instructing it to watch for file changes in the directories you specify, during development.
+
+Workers run with reduced privileges by default, and the number of workers is configurable (but defaults to the number of CPU cores).
 
 Installation
 ============
@@ -14,7 +16,9 @@ Simple example
 ==============
 
 ```javascript
-var pluribus = require('pluribus');
+var pluribus, options;
+
+pluribus = require('pluribus');
 
 function worker() {
     console.log("I'm a worker");
@@ -24,7 +28,14 @@ function master() {
     console.log("I'm the master");
 }
 
-pluribus.execute("Example", { "master": master, "worker": worker, "quiet": false });
+options = {
+    master: master,
+    worker: worker,
+    silent: false,
+    privs: {user: "nobody", group: "nogroup"}
+};
+
+pluribus.execute("Example", options);
 ```
 
 This example in use:
@@ -82,6 +93,41 @@ $ kill -SIGINT 30589
 2014-10-09T15:42:41.945Z [30589]: (master) Worker 30610 exited
 $ </pre>
 
+Watching for Changes and Manual Restart
+=======================================
+
+If you send a `--pluribus-watch` flag to your application as a command line argument, it will watch for
+file changes in the directories specified in your configuration file. If you do not list any globs
+in your config file, a default globs array will be used.
+
+You can also watch for changes by including a `watch: true` property in your config file and running
+your application without the `--pluribus-watch` flag.
+
+While watching for changes, you can manually restart your application by typing 'rs' at the command line.
+
+<pre>
+$ node example.js --pluribus-watch
+2015-05-12T09:42:04.420Z [5561]: (master) Starting
+2015-05-12T09:42:04.748Z [5561]: (master) Type 'rs' to restart
+2015-05-12T09:42:04.751Z [5561]: (master) Watching for changes...
+2015-05-12T09:42:09.062Z [5561]: (master) Running Example master method
+I'm the master
+2015-05-12T09:42:09.577Z [5569]: (worker) Starting
+2015-05-12T09:42:09.601Z [5568]: (worker) Starting
+I'm a worker
+2015-05-12T09:42:09.634Z [5570]: (worker) Starting
+I'm a worker
+2015-05-12T09:42:09.660Z [5571]: (worker) Starting
+I'm a worker
+I'm a worker
+</pre>
+
+Specify a Custom Logger
+=======================
+
+If you provide a logging function in your configuration file, it will be used.
+For example, `config.logger = require("winston").info`.
+
 API Documentation
 =================
 
@@ -103,18 +149,25 @@ config.worker = function () {};   // Function to execute as the workers.
                                   //   Default: none defined
                                   //   (though optional, its kinda the whole point)
 
-config.silent = false;            // If true pluribus will log nothing.
+config.silent = true;             // If true pluribus will log nothing.
+                                  //   Default: true
+
+config.watch  = false;            // If true pluribus will watch for changes
                                   //   Default: false
 
-config.numWorkers = 2;            // How many workers to spawn.
+config.workers = 2;               // How many workers to spawn.
                                   //   Default: number of CPUs
+
+config.globs = ["/*", "/lib/*"];  // Globs to watch. If watch is specified but globs is not,
+                                  // it defaults to [ path.resolve("**/*.js"),
+                                  // "!" + path.resolve(".", "node_modules", "**/*") ]
 
 config.privs = {};                // Affects the privileges of workers.
 config.privs.user  = "userName";  // The username to run workers as.
 config.privs.group = "groupName"; // The group to run workers as.
                                   //    Default: nobody:nogroup
 
-config.waitTimeout = 30000;       // The time (in ms) to wait for processes to drop
-                                  // out after being told to
+config.waitTimeout = 30000;       // The time (in ms) to wait for workers to drop
+                                  // out before being forced to.
                                   //    Default: 30000 (30s)
 ```
