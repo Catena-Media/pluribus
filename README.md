@@ -160,7 +160,12 @@ config.watch  = false;            // If true pluribus will watch for changes
 config.workers = 2;               // How many workers to spawn.
                                   //   Default: number of CPUs
 
-config.globs = ["/*", "/lib/*"];  // Globs to watch. If watch is specified but globs is not,
+config.globs = [                  // Globs to watch.
+    "/path/*",                    // Specify absolute paths, or pass each
+    "/path/lib/*.js"              // element to path.resolve() (path = require("path")).
+];                                // If path.resolve() is used, take care
+                                  // to remove leading slashes from each relative path.
+                                  // If watch is specified but globs is not,
                                   // it defaults to [ path.resolve("**/*.js"),
                                   // "!" + path.resolve(".", "node_modules", "**/*") ]
 
