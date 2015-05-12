@@ -92,7 +92,8 @@ $ kill -SIGINT 30589
 2014-10-09T15:42:41.943Z [30589]: (master) Worker 30609 exited
 2014-10-09T15:42:41.943Z [30589]: (master) Worker 30611 exited
 2014-10-09T15:42:41.945Z [30589]: (master) Worker 30610 exited
-$ </pre>
+$
+</pre>
 
 Watching for Changes and Manual Restart
 =======================================
