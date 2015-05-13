@@ -99,13 +99,15 @@ Watching for Changes and Manual Restart
 =======================================
 
 If you send a `--pluribus-watch` flag to your application as a command line argument, it will watch for
-file changes in the directories specified in your configuration file. If you do not list any globs
-in your config file, a default globs array will be used.
+file changes in the directories specified in your configuration object. If you do not list any globs
+in your configuration, a default globs array will be used.
 
-You can also watch for changes by including a `watch: true` property in your config file and running
+You can also watch for changes by including a `watch: true` property in your config object and running
 your application without the `--pluribus-watch` flag.
 
-While watching for changes, you can manually restart your application by typing 'rs' at the command line.
+See the API documentation section of this readme for details of how to set up your configuration.
+
+While watching for changes, you can manually restart your application by typing `rs` at the command line.
 
 <pre>
 $ node example.js --pluribus-watch
@@ -127,7 +129,7 @@ I'm a worker
 Specify a Custom Logger
 =======================
 
-If you provide a logging function in your configuration file, it will be used.
+If you provide a logging function in your configuration object, it will be used.
 For example, `config.logger = require("winston").info`.
 
 API Documentation
