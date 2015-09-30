@@ -2,15 +2,15 @@
   "name": "pluribus",
   "version": "1.0.0-beta",
   "author": {
-    "name": "twistdigital",
-    "email": "contact@twistdigital.co.uk"
+    "name": "Digital Design Labs",
+    "email": "hello@digitaldesignlabs.com"
   },
   "main": "lib/pluribus.js",
   "files": [
     "lib"
   ],
-  "bugs": "https://github.com/twistdigital/pluribus/issues",
-  "homepage": "https://github.com/twistdigital/pluribus",
+  "bugs": "https://github.com/digitaldesignlabs/pluribus/issues",
+  "homepage": "https://github.com/digitaldesignlabs/pluribus",
   "dependencies": {
     "glob-watcher": "^2.0.0",
     "lodash.defaults": "^3.1.1",
@@ -28,12 +28,12 @@
     },
     {
       "name": "Warren Lockhart",
-      "email": "warren.lockhart@twistdigital.co.uk"
+      "email": "warren.lockhart@digitaldesignlabs.com"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/twistdigital/pluribus.git"
+    "url": "git://github.com/digitaldesignlabs/pluribus.git"
   },
   "keywords": [
     "cluster",
