@@ -1,6 +1,6 @@
 {
   "name": "pluribus",
-  "version": "1.0.1-beta",
+  "version": "1.1.0-beta",
   "author": {
     "name": "Digital Design Labs",
     "email": "hello@digitaldesignlabs.com"
@@ -12,9 +12,9 @@
   "bugs": "https://github.com/digitaldesignlabs/pluribus/issues",
   "homepage": "https://github.com/digitaldesignlabs/pluribus",
   "dependencies": {
-    "glob-watcher": "^2.0.0",
-    "lodash.defaults": "^3.1.1",
-    "lodash.noop": "^3.0.0"
+    "glob-watcher": "^3.0.0",
+    "lodash.defaults": "^4.0.1",
+    "lodash.noop": "^3.0.1"
   },
   "description": "Cluster manager",
   "contributors": [
