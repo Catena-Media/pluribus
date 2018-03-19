@@ -17,7 +17,7 @@ Simple example
 
 ```javascript
 
-const pluribus = require('pluribus');
+const pluribus = require("pluribus");
 
 function worker() {
     console.log("I'm a worker");
@@ -143,7 +143,7 @@ First is a string used for logging. Can be anything. We suggest the name of your
 Second is a config object with the following format. All the values are optional, but the defaults may not suit you.
 
 ```javascript
-let config = {};
+const config = {};
 
 config.master = function () {};   // Function to execute as the master.
                                   //   Default: none defined
